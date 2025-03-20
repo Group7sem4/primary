@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Habits Questionnaire</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Reading Habits of College Students</h2>
+        <form id="surveyForm">
+            <div class="question">
+                <label>Gender:</label><br>
+                <input type="radio" name="gender" value="Male"> Male
+                <input type="radio" name="gender" value="Female"> Female
+                <input type="radio" name="gender" value="Other"> Other
+            </div>
+            
+            <div class="question">
+                <label>Year of Study:</label><br>
+                <select name="year">
+                    <option value="1st Year">1st Year</option>
+                    <option value="2nd Year">2nd Year</option>
+                    <option value="3rd Year">3rd Year</option>
+                    <option value="4th Year">4th Year</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label>Stream of Study:</label><br>
+                <input type="radio" name="stream" value="STEM"> STEM
+                <input type="radio" name="stream" value="Humanities"> Humanities
+                <input type="radio" name="stream" value="Commerce"> Commerce
+                <input type="radio" name="stream" value="Other"> Other
+            </div>
+            
+            <div class="question">
+                <label>How often do you read books?</label><br>
+                <select name="reading_frequency">
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Rarely">Rarely</option>
+                    <option value="Never">Never</option>
+                </select>
+            </div>
+            
+            <div class="question">
+                <label>Preferred Book Genres:</label><br>
+                <input type="checkbox" name="genres" value="Crime and Mystery"> Crime and Mystery<br>
+                <input type="checkbox" name="genres" value="Fantasy"> Fantasy<br>
+                <input type="checkbox" name="genres" value="Science Fiction"> Science Fiction<br>
+                <input type="checkbox" name="genres" value="Romance"> Romance<br>
+            </div>
+            
+            <button type="button" onclick="submitForm()">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function submitForm() {
+            let form = document.getElementById('surveyForm');
+            let formData = new FormData(form);
+            let jsonObject = {};
+            formData.forEach((value, key) => {
+                if (!jsonObject[key]) {
+                    jsonObject[key] = value;
+                } else {
+                    if (!Array.isArray(jsonObject[key])) {
+                        jsonObject[key] = [jsonObject[key]];
+                    }
+                    jsonObject[key].push(value);
+                }
+            });
+            
+            let jsonStr = JSON.stringify(jsonObject, null, 2);
+            let blob = new Blob([jsonStr], { type: "application/json" });
+            let a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = "survey_responses.json";
+            a.click();
+        }
+    </script>
+</body>
+</html>

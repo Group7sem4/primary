@@ -92,51 +92,43 @@
                 <input type="checkbox" name="genres" value="Devotional"> Devotional/Mythology<br>
             </div>
             <div class="question">
+                <label>Primary reason for reading books:</label><br>
+                <input type="checkbox" name="reason" value="Academic purposes"> Academic purposes<br>
+                <input type="checkbox" name="reason" value="Skill development"> Skill development & Self-improvement<br>
+                <input type="checkbox" name="reason" value="Relaxation"> Stress relief & Relaxation<br>
+                <input type="checkbox" name="reason" value="Hobby"> Hobby & Passion for reading<br>
+            </div>
+            <div class="question">
+                <label>How do you decide what book to read next?</label><br>
+                <input type="checkbox" name="decision" value="Recommendations"> Recommendations from friends/family<br>
+                <input type="checkbox" name="decision" value="Online reviews"> Online book reviews (Goodreads, Amazon, etc.)<br>
+                <input type="checkbox" name="decision" value="Academic requirements"> Academic requirements<br>
+                <input type="checkbox" name="decision" value="Social media trends"> Social media trends<br>
+            </div>
+            <div class="question">
                 <label>Do you believe reading non-curriculum books improves academic performance?</label><br>
                 <input type="radio" name="academic_benefit" value="Yes"> Yes
                 <input type="radio" name="academic_benefit" value="No"> No
                 <input type="radio" name="academic_benefit" value="Not sure"> Not sure
             </div>
             <div class="question">
-                <label>What media do you primarily use to access reading material?</label><br>
-                <input type="checkbox" name="medium" value="Printed"> Printed Medium (Books, Newspapers, Magazines)<br>
-                <input type="checkbox" name="medium" value="Digital"> Digital Medium (E-books, Online Articles)<br>
-                <input type="checkbox" name="medium" value="Audio"> Audio Medium (Audiobooks, Podcasts)<br>
-            </div>
-            <div class="question">
-                <label>Do you own a personal collection of books?</label><br>
-                <input type="radio" name="book_collection" value="Yes"> Yes
-                <input type="radio" name="book_collection" value="No"> No
+                <label>What factors influence your reading habits the most?</label><br>
+                <input type="checkbox" name="influence" value="Parental"> Parental influence<br>
+                <input type="checkbox" name="influence" value="Peers"> Peer influence<br>
+                <input type="checkbox" name="influence" value="Social media"> Social media trends<br>
             </div>
             <div class="question">
                 <label>On a scale of 1-10, how important is reading in your life?</label><br>
                 <input type="number" name="reading_importance" min="1" max="10">
             </div>
+            <div class="question">
+                <label>Would you be interested in participating in book discussions or reading groups?</label><br>
+                <input type="radio" name="book_discussion" value="Yes"> Yes
+                <input type="radio" name="book_discussion" value="No"> No
+                <input type="radio" name="book_discussion" value="Not sure"> Not Sure
+            </div>
             <button type="button" onclick="submitForm()">Submit</button>
         </form>
     </div>
-    <script>
-        function submitForm() {
-            let form = document.getElementById('surveyForm');
-            let formData = new FormData(form);
-            let jsonObject = {};
-            formData.forEach((value, key) => {
-                if (!jsonObject[key]) {
-                    jsonObject[key] = value;
-                } else {
-                    if (!Array.isArray(jsonObject[key])) {
-                        jsonObject[key] = [jsonObject[key]];
-                    }
-                    jsonObject[key].push(value);
-                }
-            });
-            let jsonStr = JSON.stringify(jsonObject, null, 2);
-            let blob = new Blob([jsonStr], { type: "application/json" });
-            let a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "survey_responses.json";
-            a.click();
-        }
-    </script>
 </body>
 </html>
